@@ -111,7 +111,7 @@ STYLES = {
 FRAMEWORK_CONFIG = {
     'tender_type': 'framework',
     'display_name': 'Framework Tender',
-    'description': 'Traditional framework tender quotations with SRM codes',
+    'description': 'Traditional framework tender quotations with document numbers',
     'mappings': {
         'input_columns': {
             'tender_number': 'Tender Number',
@@ -119,27 +119,28 @@ FRAMEWORK_CONFIG = {
             'material_description': 'Material Description',
             'catalog_number': 'Catalog Number',
             'material_number': 'Material Number',
-            'srm_code': 'SRM CODE',
+            # 'srm_code': None,  # Not used in framework tenders anymore
             'quantity': 'Quantity',
             'unit_price': 'Price',
             'vat_percentage': 'VAT %',
             'unit_of_measurement': 'Unit Of Measurement',
             'manufacturer_country': 'Manufacturer Country',
             'manufacturer': 'Manufacturer',
+            # Note: document_number will be handled separately from row 1
         },
         'output_cells': {
             'header_image_anchor': 'A1',
             'validity_label': {'row': 5, 'col': 2}, 'validity_value': {'row': 5, 'col': 3},
             'delivery_label': {'row': 6, 'col': 2}, 'delivery_value': {'row': 6, 'col': 3},
-            'srm_code_label': {'row': 7, 'col': 2}, 'srm_code_value': {'row': 7, 'col': 3},
+            # No SRM code row for framework - using document number instead
             'tender_no_label': {'row': 6, 'col': 6}, 'tender_no_value': {'row': 6, 'col': 7},
             'quot_no_label': {'row': 6, 'col': 8}, 'quot_no_value': {'row': 6, 'col': 9},
-            'your_ref_label': {'row': 7, 'col': 6, 'text': 'Your Refr'}, 'your_ref_value': {'row': 7, 'col': 7},
+            'your_ref_label': {'row': 7, 'col': 6, 'text': 'Document Number'}, 'your_ref_value': {'row': 7, 'col': 7},
             'date_label': {'row': 7, 'col': 8}, 'date_value': {'row': 7, 'col': 9},
         },
     },
     'table_settings': {
-        'start_row': 9, 'start_col': 'B',
+        'start_row': 8, 'start_col': 'B',  # One row higher since no SRM code
         'english_headers': [
             "Item", "Description", "Unit", "Qty", "Unit Price", "VAT Amount", "Total Price",
             "Manufacturer", "Made In", "P-code-xxx"
@@ -155,9 +156,9 @@ FRAMEWORK_CONFIG = {
         ],
     },
     'layout': {
-        'include_srm_code': True,
-        'info_block_rows': 3,  # validity, delivery, srm_code
-        'uses_document_number': False,  # Framework uses catalog number
+        'include_srm_code': False,
+        'info_block_rows': 2,  # validity, delivery only
+        'uses_document_number': True,  # Framework now uses document number
     }
 }
 
